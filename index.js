@@ -1,4 +1,5 @@
 import { createApp, Vue } from "https://mavue.mavo.io/mavue.js";
+import MaData from "https://mavue.mavo.io/ma-data/ma-data.js";
 
 let app = createApp({
 	data: {
@@ -9,6 +10,11 @@ let app = createApp({
 				active: true,
 			}
 		]
+	},
+	computed: {
+		doneCount() {
+			return this.tasks.filter(task => task.done).length;
+		}
 	},
 
 	methods: {
@@ -23,7 +29,7 @@ let app = createApp({
 			this.setActive(i - 1);
 		},
 
-		clearCompleted () {
+		clearCompleted() {
 			this.tasks = this.tasks.filter(task => !task.done);
 		},
 
@@ -39,7 +45,11 @@ let app = createApp({
 				this.tasks.at(-1).active = true;
 			}
 		},
+	},
+	components: {
+		"ma-data": MaData
 	}
+	,
 }, "#app");
 
 // For debugging

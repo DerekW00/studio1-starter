@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
-<meta charset="UTF-8">
-<title>Yet Another To-Do List</title>
-<script src="index.js" type="module"></script>
+<head>
+	<meta charset="UTF-8">
+	<title>Yet Another To-Do List</title>
+	<script src="index.js" type="module"></script>
 </head>
+
 <body>
 	<div id="app">
 
+		<h1> {{count(get(this.tasks, 'done'))}} done of {{tasks.length}} total</h1>
+		<div id="checkbox">
+			<ul>
+				<li v-for="(task, index) in tasks" :key="index">
+					<input type="checkbox" @click="setActive(index)" v-model="task.done">
+					<input type="text" @click="input" v-model="task.title">
+					<button @click="deleteItem(index)">x</button>
+				</li>
+			</ul>
+
+			<button @click="addItem">Add item</button>
+			<button @click="clearCompleted">Clear completed</button>
+		</div>
 	</div>
+	<ma-data property="tasks" src="local:tasks" autosave></ma-data>
 </body>
+
 </html>
